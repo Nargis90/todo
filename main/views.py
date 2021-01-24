@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from .models import Todo
+from .models import Books
 
 # Create your views here.
 def homepage(request):
@@ -16,3 +17,9 @@ def second(request):
 
 def third(request):
     return HttpResponse("This is page test3")
+
+
+def books(request):
+    books=Books.objects.all()
+    return render(request, "books.html", {"books":books})
+
