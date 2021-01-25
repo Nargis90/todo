@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse,redirect
 from .models import Todo
-from .models import Books
+from .models import Book
 
 # Create your views here.
 def homepage(request):
@@ -26,6 +26,22 @@ def add_todo(request):
     return redirect(test)
 
 def books(request):
-    books=Books.objects.all()
+    books=Book.objects.all()
     return render(request, "books.html", {"books":books})
 
+def add_book(request):
+    form = request.POST 
+    books = Book(
+        title=form["title"],
+        subtitle=form["subtitle"],
+        description=form["description"],
+        price=form["price"],
+        genre=form["genre"],
+        author=form["author"],
+        year=form["date"][:10]
+    )
+    books.save()
+
+    return redirect(Book)
+
+    
