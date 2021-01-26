@@ -27,7 +27,7 @@
             </form>
         </div>
 
-        <div class="todo_container">
+        <div class="todo_container
 
           {% for todo in todo_list %}
 
@@ -39,12 +39,16 @@
                 {% endif%}
                 ">
 
-                <div class="todo_item_header">
-                    <label class="checkbox_container">
-                        <input type="checkbox" />
+            <div class="todo_item_header">
+                <label class="checkbox_container">
+                    <input type="checkbox
+                        {% if todo.is_closed %}
+                        checked
+                        {% endif%}
+                        "/>
                         <span class="checkmark"></span>
                     </label>
-                    <h4>{{ todo.text }}</h4>
+                    <h4><a href ="{% url 'close-todo' todo.id %}" {{ todo.text }}></a></h4>
                 </div>
                 <div class="todo_item_footer">
                     <p>{{ todo.created_at }}</p>
@@ -52,9 +56,9 @@
 
                     {% if todo.is_favorite %}
 
-                        <a href="{% url 'unmark-todo' todo.id %}"><img src="{% static './icons/star1.png' %}"/></a>
+                        <a href="{% url 'mark-todo' todo.id %}"><img src="{% static './icons/star1.png' %}"/></a>
                     {% else %}
-                        <a href="{% url 'delete-todo' todo.id %}"><img src="{% static './icons/star2.png' %}" /></a>
+                        <a href="{% url 'mark-todo' todo.id %}"><img src="{% static './icons/star2.png' %}" /></a>
                     {% endif %}
 
                     <a href="{% url 'delete-todo' todo.id %}"><img src="{% static './icons/korzina.png' %}" /></a>
