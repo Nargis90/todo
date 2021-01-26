@@ -31,7 +31,14 @@
 
           {% for todo in todo_list %}
 
-            <div class="todo_item">
+            <div class="todo_item
+                {% if todo.is_favorite %}
+                    marked
+                {% elif todo.is_closed %}
+                    done
+                {% endif%}
+                ">
+
                 <div class="todo_item_header">
                     <label class="checkbox_container">
                         <input type="checkbox" />
@@ -42,8 +49,16 @@
                 <div class="todo_item_footer">
                     <p>{{ todo.created_at }}</p>
                     <div class="action_buttons">
-                        <img src="{% static './icons/star1.png' %}"/>
-                        <img src="{% static './icons/korzina.png' %}" />
+
+                    {% if todo.is_favorite %}
+
+                        <a href="{% url 'unmark-todo' todo.id %}"><img src="{% static './icons/star1.png' %}"/></a>
+                    {% else %}
+                        <a href="{% url 'delete-todo' todo.id %}"><img src="{% static './icons/star2.png' %}" /></a>
+                    {% endif %}
+
+                    <a href="{% url 'delete-todo' todo.id %}"><img src="{% static './icons/korzina.png' %}" /></a>
+
                     </div>
                 </div>
             </div>
